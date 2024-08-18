@@ -488,6 +488,7 @@
                           <p><span>Tel:</span> +254 711512235</p>
                           <p><span>Email:</span> info@webifyafrica.com</p>
                           <p><span>Working Hours:</span> 9am-6pm (UTC+3)</p>
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-brand ms-lg-3">Contact</a>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -531,32 +532,33 @@
                                 </div>
                             </div>
                             <div class="col-lg-8">
-                                <form class="p-lg-5 col-12 row g-3">
+                                <form id="contactForm" action="https://script.google.com/macros/s/AKfycbyzTApyNsKw_-5EhrOrEZauxYH922rHs0u1JAkaN4zK3agvV7m6kNMO0EdPEzzuONBV/exec" method="POST" class="p-lg-5 col-12 row g-3"  onsubmit="submitForm(event)">
                                     <div>
                                         <h1>Get in touch</h1>
                                     <p>Fell free to contact us and we will get back to you as soon as possible</p>
                                     </div>
                                     <div class="col-lg-6">
                                         <label for="userName" class="form-label">First name</label>
-                                        <input type="text" class="form-control" placeholder="Jon" id="userName"
+                                        <input type="text" name="firstname" class="form-control" placeholder="Your First Name" id="firstname"
                                             aria-describedby="emailHelp">
                                     </div>
                                     <div class="col-lg-6">
                                         <label for="userName" class="form-label">Last name</label>
-                                        <input type="text" class="form-control" placeholder="Doe" id="userName"
+                                        <input type="text" name="lastname" class="form-control" placeholder="Your Last Name" id="lastname"
                                             aria-describedby="emailHelp">
                                     </div>
                                     <div class="col-12">
                                         <label for="userName" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Johndoe@example.com" id="userName"
+                                        <input type="email" name="email" class="form-control" placeholder="Your Email Address" id="email"
                                             aria-describedby="emailHelp">
                                     </div>
                                     <div class="col-12">
                                         <label for="exampleInputEmail1" class="form-label">Enter Message</label>
-                                        <textarea name="" placeholder="This is looking great and nice." class="form-control" id=""  rows="4"></textarea>
+                                        <textarea name="message" placeholder="Your Message" class="form-control" id="message"  rows="4"></textarea>
                                     </div>
 
                                     <div class="col-12">
+                                        <p id="formStatus" style="color: green; display: none;">Message Sent Successfully.</p>
                                         <button type="submit" class="btn btn-brand">Send Message</button>
                                         <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
@@ -571,6 +573,45 @@
     </div>
 
 
+
+
+
+
+    <script>
+        function submitForm(event) {
+          event.preventDefault();  // Prevent the default form submission
+      
+          const form = document.getElementById('contactForm');
+          const formData = new FormData(form);
+      
+          // Send the form data using Fetch API
+          fetch(form.action, {
+            method: 'POST',
+            body: formData,
+          })
+          .then(response => response.text())  // Get plain text response
+          .then(data => {
+            // Clear the form fields
+            form.reset();
+      
+            // Display the success message
+            const statusMessage = document.getElementById('formStatus');
+            statusMessage.textContent = data;  // Display the plain text response
+            statusMessage.style.display = 'block';
+      
+            // Hide the success message after 2 seconds
+            setTimeout(() => {
+              statusMessage.style.display = 'none';
+            }, 2000);
+          })
+          .catch(error => {
+            alert('Error: ' + error);
+          });
+        }
+      </script>
+      
+
+    
 
 
 

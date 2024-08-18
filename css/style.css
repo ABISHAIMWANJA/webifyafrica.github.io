@@ -495,3 +495,7 @@ input.form-control {
     box-shadow: none;
     border-color: var(--brand);
 }
+#formStatus {
+    margin-top: 10px;
+    font-weight: bold;
+  }
